@@ -1,20 +1,31 @@
 {
+    "version": "0.0.3",
+    "license": "GPL-2.0+",
     "name": "generator-drupal",
     "description": "Generate a Drupal related projects",
-    "version": "0.0.2",
-    "license": "GPL-2.0+",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Sweetchuck/npm-generator-drupal.git"
-    },
-    "files": [
-        "generators/package"
-    ],
+    "homepage": "https://github.com/Sweetchuck/npm-generator-drupal.git",
     "keywords": [
         "yeoman-generator",
         "drupal"
     ],
+    "author": {
+        "name": "Andor Dávid",
+        "url": "https://github.com/Sweetchuck",
+        "github": "Sweetchuck",
+        "twitter": "andor_david",
+        "linkedin": "andor-dávid/5b/484/b83"
+    },
+    "bugs": {
+        "url": "https://github.com/Sweetchuck/npm-generator-drupal/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Sweetchuck/npm-generator-drupal.git"
+    },
     "dependencies": {
         "yeoman-generator": "^0.23.2"
-    }
+    },
+    "files": [
+        "generators/package"
+    ]
 }
