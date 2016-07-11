@@ -1,6 +1,6 @@
 {
-    "name": "generator-drupal-typings",
-    "description": "Generate a drupal-typings project",
+    "name": "generator-drupal",
+    "description": "Generate a Drupal related projects",
     "version": "0.0.1",
     "license": "GPL-2.0+",
     "files": [
@@ -8,8 +8,7 @@
     ],
     "keywords": [
         "yeoman-generator",
-        "drupal",
-        "typings"
+        "drupal"
     ],
     "dependencies": {
         "yeoman-generator": "^0.23.2"
