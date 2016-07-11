@@ -1,0 +1,17 @@
+{
+    "name": "generator-drupal-typings",
+    "description": "Generate a drupal-typings project",
+    "version": "0.0.1",
+    "license": "GPL-2.0+",
+    "files": [
+        "generators/package"
+    ],
+    "keywords": [
+        "yeoman-generator",
+        "drupal",
+        "typings"
+    ],
+    "dependencies": {
+        "yeoman-generator": "^0.23.2"
+    }
+}
