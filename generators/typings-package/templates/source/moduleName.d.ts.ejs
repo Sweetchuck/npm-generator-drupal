@@ -1,0 +1,20 @@
+
+declare module drupal {
+
+    export module Core {
+
+        export interface IBehaviors {
+
+            <%= moduleNameLowerCamel %>: Core.IBehavior;
+
+        }
+
+    }
+
+    export interface IDrupalSettings {
+
+        <%= moduleNameLowerCamel %>?: HTMLTextAreaElement | HTMLInputElement;
+
+    }
+
+}
