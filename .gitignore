@@ -1,2 +1,13 @@
 
+/**/*.d.ts
+!/source/**/*.d.ts
+/**/*.js
+/**/*.js.map
+
 /node_modules/
+/reports/coverage/
+/tests/
+/tmp/
+/typings/
+
+/generator-drupal-*.tgz
