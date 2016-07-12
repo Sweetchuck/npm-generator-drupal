@@ -1,0 +1,15 @@
+{
+  "globalDependencies": {
+    "node": "registry:dt/node#6.0.0+20160709114037",
+    "yeoman-generator": "registry:dt/yeoman-generator#0.0.0+20160623193335"
+  },
+  "globalDevDependencies": {
+    "chai": "registry:dt/chai#3.4.0+20160601211834",
+    "lodash": "registry:dt/lodash#3.10.0+20160619033623",
+    "mocha": "registry:dt/mocha#2.2.5+20160619032855"
+  },
+  "files": [
+    "source/generators/typings-package/index.ts",
+    "source/typings/generator-drupal.d.ts"
+  ]
+}

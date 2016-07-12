@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "commonjs",
+    "rootDir": ".",
+    "outDir": "..",
+    "suppressExcessPropertyErrors": true,
+    "removeComments": false,
+    "sourceMap": false,
+    "declaration": true
+  },
+  "files": [
+    "../typings/index",
+    "generators/typings-package/index",
+    "test/generators/typings-package/indexTest",
+    "typings/generator-drupal",
+    "typings/yeoman-assert",
+    "typings/yeoman-test"
+  ]
+}

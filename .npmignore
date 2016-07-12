@@ -1,0 +1,9 @@
+
+/**/*
+
+!/generators/**/*
+!/source/typings/**/*.d.ts
+!/npm-shrinkwrap.json
+!/package.json
+!/README.md
+!/typings.json

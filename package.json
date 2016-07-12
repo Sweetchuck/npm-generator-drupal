@@ -1,31 +1,52 @@
 {
-    "version": "0.0.3",
-    "license": "GPL-2.0+",
-    "name": "generator-drupal",
-    "description": "Generate a Drupal related projects",
-    "homepage": "https://github.com/Sweetchuck/npm-generator-drupal.git",
-    "keywords": [
-        "yeoman-generator",
-        "drupal"
-    ],
-    "author": {
-        "name": "Andor Dávid",
-        "url": "https://github.com/Sweetchuck",
-        "github": "Sweetchuck",
-        "twitter": "andor_david",
-        "linkedin": "andor-dávid/5b/484/b83"
-    },
-    "bugs": {
-        "url": "https://github.com/Sweetchuck/npm-generator-drupal/issues"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Sweetchuck/npm-generator-drupal.git"
-    },
-    "dependencies": {
-        "yeoman-generator": "^0.23.2"
-    },
-    "files": [
-        "generators/package"
-    ]
+  "version": "0.0.4",
+  "license": "GPL-2.0+",
+  "name": "generator-drupal",
+  "description": "Generate a Drupal related projects",
+  "homepage": "https://github.com/Sweetchuck/npm-generator-drupal.git",
+  "keywords": [
+    "yeoman-generator",
+    "drupal"
+  ],
+  "author": {
+    "name": "Andor Dávid",
+    "url": "https://github.com/Sweetchuck",
+    "github": "Sweetchuck",
+    "twitter": "andor_david",
+    "linkedin": "andor-dávid/5b/484/b83"
+  },
+  "bugs": {
+    "url": "https://github.com/Sweetchuck/npm-generator-drupal/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sweetchuck/npm-generator-drupal.git"
+  },
+  "dependencies": {
+    "yeoman-generator": "^0.23.2"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.11",
+    "istanbul": "^0.4.4",
+    "mocha": "^2.5.3",
+    "mock-utf8-stream": "^0.1.1",
+    "tslint": "^3.13.0",
+    "typings": "^1.3.1",
+    "yeoman-assert": "^2.2.1",
+    "yeoman-test": "^1.4.0"
+  },
+  "scripts": {
+    "tsc": "tsc --project source/",
+    "lint": "tslint ./source/**/*.ts",
+    "tmp-prepare": "[ ! -d './tmp/' ] && mkdir tmp/; find ./tmp/ -mindepth 1 -maxdepth 1 -exec rm -rf {} \\;",
+    "preunpack": "npm pack && npm run tmp-prepare",
+    "unpack": "tar zxvf generator-drupal-*.tgz -C tmp/",
+    "test": "npm run test-istanbul",
+    "clear-coverage": "[ ! -d ./reports/coverage ] || rm -rf ./reports/coverage",
+    "pretest-istanbul": "npm run clear-coverage",
+    "test-istanbul": "istanbul cover --dir ./reports/coverage _mocha -- --recursive ./test/**/*Test.js",
+    "posttest-istanbul": "npm run istanbul-check-coverage",
+    "istanbul-check-coverage": "istanbul check-coverage"
+  }
 }
