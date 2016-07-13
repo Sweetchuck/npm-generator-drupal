@@ -16,12 +16,23 @@ import * as YoAssert from 'yeoman-assert';
         before(function () : PromiseLike<any> {
             return yoTest
                 .run(process.cwd() + '/generators/typings-package')
+                .withPrompts({
+                    moduleName: 'my_module'
+                })
                 .toPromise();
         });
 
-        it('It works', function (done: MochaDone) : void {
+        it('has the excepted files', function (done: MochaDone) : void {
             yoAssert.file([
-                'tslint.json'
+                'source/my_module.d.ts',
+                'source/my_module.t.ts',
+                'source/tsconfig.json',
+                '.editorconfig',
+                '.gitignore',
+                'package.json',
+                'README.md',
+                'tslint.json',
+                'typings.json'
             ]);
 
             done();
