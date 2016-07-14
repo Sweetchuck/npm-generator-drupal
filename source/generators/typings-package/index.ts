@@ -56,6 +56,7 @@ module.exports = YeomanGenerator.Base.extend({
                 'source/tsconfig.json',
                 '.editorconfig',
                 '.gitignore',
+                '.npmignore',
                 'package.json',
                 'README.md',
                 'tslint.json',

@@ -25,6 +25,7 @@ import * as YoAssert from 'yeoman-assert';
                 'source/tsconfig.json',
                 '.editorconfig',
                 '.gitignore',
+                '.npmignore',
                 'package.json',
                 'README.md',
                 'tslint.json',
