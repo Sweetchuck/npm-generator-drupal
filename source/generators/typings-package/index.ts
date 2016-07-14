@@ -46,7 +46,8 @@ module.exports = YeomanGenerator.Base.extend({
             var tplVars: {[key: string]: string} = {
                 moduleName: this._config.moduleName,
                 moduleNameDash: this._config.moduleName.replace('_', '-'),
-                moduleNameLowerCamel: _.camelCase(this._config.moduleName)
+                moduleNameLowerCamel: _.camelCase(this._config.moduleName),
+                moduleNameUpperCamel: _.capitalize(_.camelCase(this._config.moduleName))
             };
 
             var files: string[] = [
