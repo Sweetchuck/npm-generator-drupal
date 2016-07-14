@@ -11,8 +11,8 @@
   },
   "files": [
     "../typings/index",
-    "generators/typings-package/index",
-    "test/generators/typings-package/indexTest",
+    "generators/typed/index",
+    "test/generators/typed/indexTest",
     "typings/generator-drupal",
     "typings/yeoman-assert",
     "typings/yeoman-test"

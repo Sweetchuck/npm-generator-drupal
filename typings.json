@@ -9,7 +9,7 @@
     "mocha": "registry:dt/mocha#2.2.5+20160619032855"
   },
   "files": [
-    "source/generators/typings-package/index.ts",
+    "source/generators/typed/index.ts",
     "source/typings/generator-drupal.d.ts"
   ]
 }

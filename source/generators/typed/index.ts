@@ -1,8 +1,8 @@
 
 import * as YeomanGenerator from 'yeoman-generator';
 import * as _ from 'lodash';
-import IConfig = GeneratorDrupal.TypingsPackage.IConfig;
-import IAnswer = GeneratorDrupal.TypingsPackage.IAnswer;
+import IConfig = GeneratorDrupal.Typed.IConfig;
+import IAnswer = GeneratorDrupal.Typed.IAnswer;
 
 module.exports = YeomanGenerator.Base.extend({
 

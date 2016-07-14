@@ -1,7 +1,7 @@
 
 declare namespace GeneratorDrupal {
 
-    export namespace TypingsPackage {
+    export namespace Typed {
 
         export interface IConfig {
 

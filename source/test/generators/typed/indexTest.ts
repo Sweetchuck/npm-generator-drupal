@@ -7,11 +7,11 @@ import * as YoAssert from 'yeoman-assert';
     yoAssert: YeomanAssert.IStatic
 ) : void {
 
-    describe('drupal:typings-package', function () : void {
+    describe('drupal:typed', function () : void {
 
         before(function () : PromiseLike<any> {
             return yoTest
-                .run(process.cwd() + '/generators/typings-package')
+                .run(process.cwd() + '/generators/typed')
                 .withPrompts({
                     moduleName: 'my_module'
                 })
