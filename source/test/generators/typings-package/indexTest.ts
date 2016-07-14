@@ -1,7 +1,3 @@
-/**
- * @file
- * Documentation missing.
- */
 
 import * as YoTest from 'yeoman-test';
 import * as YoAssert from 'yeoman-assert';

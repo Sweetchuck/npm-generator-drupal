@@ -68,3 +68,4 @@ module.exports = YeomanGenerator.Base.extend({
         // @todo Do something.
     }
 });
+//# sourceMappingURL=index.js.map

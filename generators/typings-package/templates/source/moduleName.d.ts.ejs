@@ -1,20 +1,42 @@
+declare namespace drupal {
 
-declare module drupal {
+  export namespace Core {
 
-    export module Core {
+    export interface Behaviors {
 
-        export interface IBehaviors {
-
-            <%= moduleNameLowerCamel %>: Core.IBehavior;
-
-        }
+      // @todo
+      <%= moduleNameLowerCamel %>: Core.Behavior;
 
     }
 
-    export interface IDrupalSettings {
+  }
 
-        <%= moduleNameLowerCamel %>?: HTMLTextAreaElement | HTMLInputElement;
+  export namespace <%= moduleNameUpperCamel %> {
+
+    export interface DrupalSettings {
+
+      // @todo
 
     }
+
+    export interface DrupalStatic {
+
+      // @todo
+
+    }
+
+  }
+
+  export interface DrupalSettings {
+
+    <%= moduleNameLowerCamel %>?: <%= moduleNameUpperCamel %>.DrupalSettings;
+
+  }
+
+  export interface DrupalStatic {
+
+    <%= moduleNameLowerCamel %>?: <%= moduleNameUpperCamel %>.DrupalStatic;
+
+  }
 
 }
