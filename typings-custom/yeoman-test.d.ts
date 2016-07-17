@@ -15,7 +15,7 @@ declare namespace YeomanTest {
 
         withArguments(args: string[]) : this;
 
-        withPrompts(answers: {[key: string]: string | number}) : this;
+        withPrompts(answers: {[key: string]: string | number | boolean}) : this;
 
         toPromise() : PromiseLike<any>;
 

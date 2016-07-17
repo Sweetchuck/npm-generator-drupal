@@ -3,18 +3,18 @@
     "target": "ES5",
     "module": "commonjs",
     "rootDir": ".",
-    "outDir": "..",
+    "outDir": ".",
     "suppressExcessPropertyErrors": true,
     "removeComments": false,
     "sourceMap": true,
     "declaration": true
   },
   "files": [
-    "../typings/index",
+    "typings/index",
+    "typings-custom/generator-drupal",
+    "typings-custom/yeoman-assert",
+    "typings-custom/yeoman-test",
     "generators/typed/index",
-    "test/generators/typed/indexTest",
-    "typings/generator-drupal",
-    "typings/yeoman-assert",
-    "typings/yeoman-test"
+    "test/generators/typed/indexTest"
   ]
 }

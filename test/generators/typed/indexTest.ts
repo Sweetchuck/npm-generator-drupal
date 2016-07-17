@@ -7,21 +7,22 @@ import * as YoAssert from 'yeoman-assert';
     yoAssert: YeomanAssert.IStatic
 ) : void {
 
-    describe('drupal:typed', function () : void {
+    describe('drupal:typed with install', function () : void {
 
         before(function () : PromiseLike<any> {
             return yoTest
                 .run(process.cwd() + '/generators/typed')
                 .withPrompts({
-                    moduleName: 'my_module'
+                    moduleName: 'my_module_foo',
+                    runInstall: true
                 })
                 .toPromise();
         });
 
         it('has the excepted files', function (done: MochaDone) : void {
             yoAssert.file([
-                'source/my_module.d.ts',
-                'source/my_module.t.ts',
+                'source/my_module_foo.d.ts',
+                'source/my_module_foo.t.ts',
                 'source/tsconfig.json',
                 '.editorconfig',
                 '.gitignore',

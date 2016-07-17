@@ -1,8 +1,12 @@
 
-/**/*
+/**
 
-!/generators/**/*
-!/source/typings/**/*.d.ts
+!/generators/**/*.ejs
+!/generators/**/*.d.ts
+!/generators/**/*.js
+
+!/typings-custom/**/*.d.ts
+
 !/npm-shrinkwrap.json
 !/package.json
 !/README.md

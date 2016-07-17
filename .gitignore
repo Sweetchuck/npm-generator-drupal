@@ -1,12 +1,12 @@
 
 /**/*.d.ts
-!/source/**/*.d.ts
 /**/*.js
 /**/*.js.map
 
+!/typings-custom/**/*.d.ts
+
 /node_modules/
-/reports/coverage/
-/tests/
+/reports/
 /tmp/
 /typings/
 

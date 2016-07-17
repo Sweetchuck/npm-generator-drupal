@@ -38,11 +38,11 @@
     "yeoman-test": "^1.4.0"
   },
   "scripts": {
-    "tsc": "tsc --project source/",
-    "lint": "tslint ./source/**/*.ts",
+    "tsc": "tsc --project .",
+    "lint": "tslint ./{generators,test,typings-custom}/**/*.ts",
     "tmp-prepare": "[ ! -d './tmp/' ] && mkdir tmp/; find ./tmp/ -mindepth 1 -maxdepth 1 -exec rm -rf {} \\;",
     "preunpack": "npm pack && npm run tmp-prepare",
-    "unpack": "tar zxvf generator-drupal-*.tgz -C tmp/",
+    "unpack": "tar zxvf generator-drupal-*.tgz -C tmp/ && rm generator-drupal-*.tgz",
     "test": "npm run test-istanbul",
     "clear-coverage": "[ ! -d ./reports/coverage ] || rm -rf ./reports/coverage",
     "pretest-istanbul": "npm run clear-coverage",
