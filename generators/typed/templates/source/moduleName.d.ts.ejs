@@ -2,10 +2,10 @@ declare namespace drupal {
 
   export namespace Core {
 
-    export interface Behaviors {
+    export interface IBehaviors {
 
       // @todo
-      <%= moduleNameLowerCamel %>: Core.Behavior;
+      <%= moduleNameLowerCamel %>: Core.IBehavior;
 
     }
 
@@ -13,13 +13,13 @@ declare namespace drupal {
 
   export namespace <%= moduleNameUpperCamel %> {
 
-    export interface DrupalSettings {
+    export interface IDrupalSettings {
 
       // @todo
 
     }
 
-    export interface DrupalStatic {
+    export interface IDrupalStatic {
 
       // @todo
 
@@ -27,15 +27,15 @@ declare namespace drupal {
 
   }
 
-  export interface DrupalSettings {
+  export interface IDrupalSettings {
 
-    <%= moduleNameLowerCamel %>?: <%= moduleNameUpperCamel %>.DrupalSettings;
+    <%= moduleNameLowerCamel %>?: <%= moduleNameUpperCamel %>.IDrupalSettings;
 
   }
 
-  export interface DrupalStatic {
+  export interface IDrupalStatic {
 
-    <%= moduleNameLowerCamel %>?: <%= moduleNameUpperCamel %>.DrupalStatic;
+    <%= moduleNameLowerCamel %>?: <%= moduleNameUpperCamel %>.IDrupalStatic;
 
   }
 

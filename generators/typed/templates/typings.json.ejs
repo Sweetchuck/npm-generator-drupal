@@ -1,7 +1,16 @@
 {
   "name": "drupal-<%= moduleNameDash %>",
+  "source": {
+    "homepage": "https://www.drupal.org/project/<%= moduleName %>",
+    "repository": {
+      "type": "git",
+      "url": "https://git.drupal.org/project/<%= moduleName %>.git",
+      "branch": "8.x-1.x",
+      "revision": ""
+    }
+  },
   "globalDevDependencies": {
-    "drupal-core": "http://cgit.drupalcode.org/typings/plain/typings.json?id=e269833ceae2824419847fed112dbb77b90e3c96",
+    "drupal-core": "http://cgit.drupalcode.org/typings/plain/typings.json?id=a4dc3bc456b73eddcccdc994438962baf309122e",
     "jquery": "registry:dt/jquery#1.10.0+20160704162008",
     "jqueryui": "registry:dt/jqueryui#1.9.0+20160627030821"
   },

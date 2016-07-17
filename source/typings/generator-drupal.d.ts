@@ -7,11 +7,15 @@ declare namespace GeneratorDrupal {
 
             moduleName: string;
 
+            runInstall: boolean;
+
         }
 
         export interface IAnswer {
 
             moduleName: string;
+
+            runInstall: boolean;
 
         }
 

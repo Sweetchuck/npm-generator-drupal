@@ -23,6 +23,7 @@
     "url": "https://github.com/Sweetchuck/npm-generator-drupal.git"
   },
   "dependencies": {
+    "lodash": "^4.13.1",
     "yeoman-generator": "^0.23.2"
   },
   "devDependencies": {
