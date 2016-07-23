@@ -14,6 +14,7 @@
     "typings-custom/generator-drupal",
     "typings-custom/yeoman-assert",
     "typings-custom/yeoman-test",
+    "generators/project/index",
     "generators/typed/index",
     "test/generators/typed/indexTest"
   ]

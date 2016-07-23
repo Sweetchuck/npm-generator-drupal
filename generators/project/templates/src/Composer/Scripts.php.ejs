@@ -1,0 +1,111 @@
+<?php
+
+namespace <%= vendorUpperCamel %>\<%= nameUpperCamel %>\Composer;
+
+use Composer\Script\Event;
+use DrupalComposer\DrupalScaffold\Plugin;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Process\Process;
+
+/**
+ * Class ScriptHandler.
+ *
+ * @package <%= vendorUpperCamel %>\<%= nameUpperCamel %>\Composer
+ */
+class Scripts
+{
+
+    /**
+     * Trigger the main scaffold.
+     */
+    public static function buildScaffold(Event $event)
+    {
+        // @todo Project config.
+        $drupal_root = 'drupal_root';
+
+        $fs = new Filesystem();
+        if (!$fs->exists("$drupal_root/autoload.php")) {
+            Plugin::scaffold($event);
+        }
+    }
+
+    /**
+     * Create required directories and files.
+     */
+    public static function createRequiredFiles(Event $event)
+    {
+        // @todo Project config.
+        $drupal_root = 'drupal_root';
+        $sites_sub_dir = 'default';
+
+        $fs = new Filesystem();
+        $dirs = [
+            'profiles',
+            'modules',
+            'themes',
+            'libraries',
+        ];
+
+        // Required for unit testing.
+        foreach ($dirs as $dir) {
+            if (!$fs->exists("$drupal_root/$dir")) {
+                $fs->mkdir("$drupal_root/$dir");
+            }
+        }
+
+        $file_names_to_copy = [
+            'settings.php',
+            'services.yml',
+        ];
+        foreach ($file_names_to_copy as $file_name_to_copy) {
+            $src = "$drupal_root/sites/default/default.$file_name_to_copy";
+            $dst = "$drupal_root/sites/$sites_sub_dir/$file_name_to_copy";
+            if ($fs->exists($src) && !$fs->exists($dst)) {
+                $fs->copy($src, $dst);
+                $fs->chmod($dst, 0666 - umask());
+                $event->getIO()->write("Create a $dst file");
+            }
+        }
+
+        $dirs_to_create = [
+            "$drupal_root/sites/$sites_sub_dir/files",
+            'sites/all/translations',
+            "sites/$sites_sub_dir/config/sync",
+            "sites/$sites_sub_dir/private",
+            "sites/$sites_sub_dir/temporary",
+        ];
+        foreach ($dirs_to_create as $dir_to_create) {
+            if (!$fs->exists($dir_to_create)) {
+                $fs->mkdir($dir_to_create, 0777);
+                $event->getIO()->write("Create a $dir_to_create directory");
+            }
+        }
+    }
+
+    /**
+     * @param \Composer\Script\Event $event
+     */
+    public static function phpcsConfigSet(Event $event)
+    {
+        if (!$event->isDevMode()) {
+            $event->getIO->write('To call "' . __METHOD__ . '" method is allowed only in "dev" mode.');
+
+            return false;
+        }
+
+        $cmd_pattern = '%s --config-set installed_paths %s';
+        /** @var \Composer\Config $config */
+        $config = $event->getComposer()->getConfig();
+        $cmd_args = [
+            escapeshellcmd($config->get('bin-dir') . '/phpcs'),
+            escapeshellarg($config->get('vendor-dir') . '/drupal/coder/coder_sniffer'),
+        ];
+
+        $process = new Process(vsprintf($cmd_pattern, $cmd_args));
+        $process->run();
+        $event->getIO()->write($process->getOutput(), false);
+        $event->getIO()->write($process->getErrorOutput(), false);
+
+        return $process->getExitCode() === 0;
+    }
+}

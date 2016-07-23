@@ -4,3 +4,6 @@ indent_size = 2
 
 [*.ts]
 indent_size = 4
+
+[generators/*/templates/**/{composer.json,RoboFile.php,Scripts.php}.ejs]
+indent_size = 4

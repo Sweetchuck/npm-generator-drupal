@@ -1,0 +1,101 @@
+{
+    "name": "<%= vendorDash %>/<%= nameDash %>",
+    "description": "Dummy description",
+    "type": "project",
+    "license": "GPL-2.0",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+<% for (var rp = 0; rp < composerRequire.length; rp++) { -%>
+<% if (composerRequire[rp].enabled) { -%>
+        "<%= composerRequire[rp].name %>": "<%= composerRequire[rp].version %>"<%= rp < composerRequire.length - 1 ? ',': '' %>
+<% } -%>
+<% } -%>
+    },
+    "require-dev": {
+<% for (var rd = 0; rd < composerRequireDev.length; rd++) { -%>
+<% if (composerRequireDev[rd].enabled) { -%>
+        "<%= composerRequireDev[rd].name %>": "<%= composerRequireDev[rd].version %>"<%= rd < composerRequireDev.length - 1 ? ',': '' %>
+<% } -%>
+<% } -%>
+    },
+    "conflict": {
+        "drupal/drupal": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "<%= vendorUpperCamel %>\\<%= nameUpperCamel %>\\": "src/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "@scaffold-build-scaffold",
+            "@scaffold-create-required-files",
+            "@deploy-git-hooks",
+            "@phpcs-set-installed-paths"
+        ],
+        "post-update-cmd": [
+            "@scaffold-build-scaffold",
+            "@scaffold-create-required-files",
+            "@deploy-git-hooks",
+            "@phpcs-set-installed-paths"
+        ],
+        "phpcs-set-installed-paths": "<%= vendorUpperCamel %>\\<%= nameUpperCamel %>\\Composer\\Scripts::phpcsConfigSet",
+        "deploy-git-hooks": "\\Cheppers\\GitHooks\\Main::deploy",
+        "scaffold-build-scaffold": "<%= vendorUpperCamel %>\\<%= nameUpperCamel %>\\Composer\\Scripts::buildScaffold",
+        "scaffold-create-required-files": "<%= vendorUpperCamel %>\\<%= nameUpperCamel %>\\Composer\\Scripts::createRequiredFiles",
+        "writable": [
+            "chmod u+w drupal_root/sites/<%= sitesSubDir %>",
+            "chmod u+w drupal_root/sites/<%= sitesSubDir %>/settings.php"
+        ],
+        "files-public-clean": "[ ! -d 'drupal_root/sites/<%= sitesSubDir %>/files/' ] || find drupal_root/sites/<%= sitesSubDir %>/files/ -mindepth 1 -maxdepth 1 -exec rm -rf {} \\;",
+        "files-private-clean": "[ ! -d 'sites/<%= sitesSubDir %>/private/' ] || find sites/<%= sitesSubDir %>/private/ -mindepth 1 -maxdepth 1 -exec rm -rf {} \\;",
+        "site-install": "cd drupal_root && ../bin/drush site-install --yes",
+        "site-reset": [
+            "@writable",
+            "@files-public-clean",
+            "@files-private-clean",
+            "@site-install"
+        ]
+    },
+    "extra": {
+        "drupal-scaffold": {
+            "excludes": [
+                ".csslintrc",
+                ".editorconfig",
+                ".eslintignore",
+                ".eslintrc",
+                ".gitattributes",
+                "sites/default/default.services.yml",
+                "sites/development.services.yml",
+                "sites/example.settings.local.php"
+            ]
+        },
+        "installer-paths": {
+            "drupal_root/core": [
+                "type:drupal-core"
+            ],
+            "drupal_root/profiles/{$name}": [
+                "type:drupal-profile"
+            ],
+            "drupal_root/modules/contrib/{$name}": [
+                "type:drupal-module"
+            ],
+            "drupal_root/themes/contrib/{$name}": [
+                "type:drupal-theme"
+            ],
+            "drupal_root/drush/contrib/{$name}": [
+                "type:drupal-drush"
+            ]
+        }
+    }
+}

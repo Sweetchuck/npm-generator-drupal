@@ -39,7 +39,7 @@
   },
   "scripts": {
     "tsc": "tsc --project .",
-    "lint": "tslint ./{generators,test,typings-custom}/**/*.ts",
+    "lint": "tslint --exclude ./{generators,lib,test}/**/*.dt.ts ./{generators,lib,test,typings-custom}/**/*.ts",
     "tmp-prepare": "[ ! -d './tmp/' ] && mkdir tmp/; find ./tmp/ -mindepth 1 -maxdepth 1 -exec rm -rf {} \\;",
     "preunpack": "npm pack && npm run tmp-prepare",
     "unpack": "tar zxvf generator-drupal-*.tgz -C tmp/ && rm generator-drupal-*.tgz",
