@@ -75,4 +75,17 @@ class RoboFile extends \Robo\Tasks
             ],
         ]);
     }
+
+    /**
+     * @return $this
+     */
+    protected function initComposerInfo()
+    {
+        if (!$this->composerInfo && is_readable('composer.json')) {
+            $this->composerInfo = json_decode(file_get_contents('composer.json'), true);
+            list($this->packageVendor, $this->packageName) = explode('/', $this->composerInfo['name']);
+        }
+
+        return $this;
+    }
 }

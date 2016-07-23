@@ -28,7 +28,7 @@ module.exports = YG.Base.extend({
                     enabled: false
                 },
                 'consolidation/robo': {
-                    version: '^1.0.0',
+                    version: 'dev-master#6af485e667c0e01111fd07e9e03a2f089ac67cb3',
                     enabled: false
                 },
                 'composer/installers': {
