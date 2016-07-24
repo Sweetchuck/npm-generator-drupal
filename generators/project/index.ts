@@ -219,6 +219,17 @@ module.exports = YG.Base.extend({
     },
 
     install: {
+        gitInit: function (): void {
+            let self: GeneratorDrupal.Project.IGenerator = this;
+
+            if (self.fs.exists(self.destinationPath() + '/.git')) {
+                return;
+            }
+
+            // @todo Configurable during prompting.
+            // @todo Find the `git` executable.
+            self.spawnCommandSync('git', ['init']);
+        },
         composer: function (): void {
             let self: GeneratorDrupal.Project.IGenerator = this;
 
