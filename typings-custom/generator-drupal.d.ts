@@ -67,11 +67,15 @@ declare namespace GeneratorDrupal {
 
             vendorUpperCamel?: string;
 
+            vendorUpper?: string;
+
             nameSnake?: string;
 
             nameLowerCamel?: string;
 
             nameUpperCamel?: string;
+
+            nameUpper?: string;
 
             composerRequire?: {[name: string]: IComposerRequireItem};
 

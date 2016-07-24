@@ -104,6 +104,9 @@ declare namespace yo {
 
         spawnCommand(name: string, args?: string[], options?: Object): void;
 
+        /**
+         * Normalize a command across OS and spawn it (synchronously).
+         */
         spawnCommandSync(name: string, args?: string[], options?: Object): void;
 
         log(message: string) : void;

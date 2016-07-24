@@ -87,9 +87,11 @@ module.exports = YG.Base.extend({
             self.config.vendorSnake = self.config.vendorDash.replace('-', '_');
             self.config.vendorLowerCamel = _.camelCase(self.config.vendorDash);
             self.config.vendorUpperCamel = Utils.upperFirst(_.camelCase(self.config.vendorDash));
+            self.config.vendorUpper = self.config.vendorSnake.toUpperCase();
             self.config.nameSnake = self.config.nameDash.replace('-', '_');
             self.config.nameLowerCamel = _.camelCase(self.config.nameDash);
             self.config.nameUpperCamel = Utils.upperFirst(_.camelCase(self.config.nameDash));
+            self.config.nameUpper = self.config.nameSnake.toUpperCase();
             self.config.sitesSubDir = 'default';
 
             if (self.config.taskRunner === 'robo') {
@@ -198,6 +200,7 @@ module.exports = YG.Base.extend({
             let self: GeneratorDrupal.Project.IGenerator = this;
 
             let files: string[] = [
+                'drupalRoot/drush/nameSnake.drush.inc',
                 'src/Composer/Scripts.php',
                 '.editorconfig',
                 '.gitignore',

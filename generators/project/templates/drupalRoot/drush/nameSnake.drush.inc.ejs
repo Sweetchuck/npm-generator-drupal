@@ -1,0 +1,70 @@
+<?php
+
+/**
+ * @file
+ * Customize this file as desired.
+ *
+ * @see https://github.com/drush-ops/drush/blob/8.x/examples/policy.drush.inc
+ */
+
+/**
+ * Implements hook_drush_help_alter().
+ */
+function <%= nameSnake %>_drush_help_alter(&$command) {
+  // @todo This can't be good.
+  if (in_array($command['command'], _<%= nameSnake %>_pm_disabled_drush_commands())) {
+    $command['options']['pm-force'] = 'Override site policy and allow Drush codebase management (pm-* commands)';
+  }
+}
+
+/**
+ * Implements drush_hook_COMMAND_validate().
+ */
+function drush_<%= nameSnake %>_pm_updatecode_validate() {
+  return _<%= nameSnake %>_pm_deny_message();
+}
+
+/**
+ * Implements drush_hook_COMMAND_validate().
+ */
+function drush_<%= nameSnake %>_pm_update_validate() {
+  return _<%= nameSnake %>_pm_deny_message();
+}
+
+/**
+ * Implements drush_hook_COMMAND_validate().
+ */
+function drush_<%= nameSnake %>_pm_download_validate() {
+  return _<%= nameSnake %>_pm_deny_message();
+}
+
+/**
+ * @return string[]
+ */
+function _<%= nameSnake %>_pm_disabled_drush_commands() {
+  return [
+    'pm-update',
+    'pm-updatecode',
+    'pm-download',
+  ];
+}
+
+/**
+ * Encourage folks to use `composer` instead of Drush pm commands.
+ *
+ * @return bool|null
+ */
+function _<%= nameSnake %>_pm_deny_message() {
+  if (!drush_get_option('pm-force')) {
+    $msg = dt(
+      'This codebase is assembled with Composer instead of Drush. Use `composer update` and `composer require` instead of @disabled-commands. You may override this error by using the --pm-force option.',
+      [
+        '@disabled-commands' => '`drush ' . implode('` and `drush ', _<%= nameSnake %>_pm_disabled_drush_commands()) . '`',
+      ]
+    );
+
+    return drush_set_error('<%= nameUpper %>_POLICY_PM_DENY', $msg);
+  }
+
+  return NULL;
+}

@@ -27,6 +27,7 @@ import * as Path from 'path';
 
         it('has the excepted files', function (done: MochaDone) : void {
             yoAssert.file([
+                'drupal_root/drush/ted_zed.drush.inc',
                 'src/Composer/Scripts.php',
                 '.editorconfig',
                 '.git-hooks',

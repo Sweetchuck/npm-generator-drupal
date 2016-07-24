@@ -59,7 +59,7 @@
         ],
         "files-public-clean": "[ ! -d 'drupal_root/sites/<%= sitesSubDir %>/files/' ] || find drupal_root/sites/<%= sitesSubDir %>/files/ -mindepth 1 -maxdepth 1 -exec rm -rf {} \\;",
         "files-private-clean": "[ ! -d 'sites/<%= sitesSubDir %>/private/' ] || find sites/<%= sitesSubDir %>/private/ -mindepth 1 -maxdepth 1 -exec rm -rf {} \\;",
-        "site-install": "cd drupal_root && ../bin/drush site-install --yes",
+        "site-install": "cd drupal_root && ../bin/drush --yes site-install",
         "site-reset": [
             "@writable",
             "@files-public-clean",
