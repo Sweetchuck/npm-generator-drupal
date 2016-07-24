@@ -12,16 +12,16 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-<% for (var rp = 0; rp < composerRequire.length; rp++) { -%>
-<% if (composerRequire[rp].enabled) { -%>
-        "<%= composerRequire[rp].name %>": "<%= composerRequire[rp].version %>"<%= rp < composerRequire.length - 1 ? ',': '' %>
+<% for (var rp = 0; rp < enabledComposerRequire.length; rp++) { -%>
+<% if (enabledComposerRequire[rp].enabled) { -%>
+        "<%= enabledComposerRequire[rp].name %>": "<%= enabledComposerRequire[rp].version %>"<%= rp < enabledComposerRequire.length - 1 ? ',': '' %>
 <% } -%>
 <% } -%>
     },
     "require-dev": {
-<% for (var rd = 0; rd < composerRequireDev.length; rd++) { -%>
-<% if (composerRequireDev[rd].enabled) { -%>
-        "<%= composerRequireDev[rd].name %>": "<%= composerRequireDev[rd].version %>"<%= rd < composerRequireDev.length - 1 ? ',': '' %>
+<% for (var rd = 0; rd < enabledComposerRequireDev.length; rd++) { -%>
+<% if (enabledComposerRequireDev[rd].enabled) { -%>
+        "<%= enabledComposerRequireDev[rd].name %>": "<%= enabledComposerRequireDev[rd].version %>"<%= rd < enabledComposerRequireDev.length - 1 ? ',': '' %>
 <% } -%>
 <% } -%>
     },

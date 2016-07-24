@@ -2356,6 +2356,18 @@
       "from": "source-map@>=0.2.0 <0.3.0",
       "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.2.0.tgz"
     },
+    "source-map-support": {
+      "version": "0.4.2",
+      "from": "source-map-support@>=0.4.0 <0.5.0",
+      "resolved": "https://registry.npmjs.org/source-map-support/-/source-map-support-0.4.2.tgz",
+      "dependencies": {
+        "source-map": {
+          "version": "0.1.32",
+          "from": "source-map@0.1.32",
+          "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.1.32.tgz"
+        }
+      }
+    },
     "sparkles": {
       "version": "1.0.0",
       "from": "sparkles@>=1.0.0 <2.0.0",
@@ -2598,6 +2610,23 @@
       "version": "1.0.0",
       "from": "trim-repeated@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/trim-repeated/-/trim-repeated-1.0.0.tgz"
+    },
+    "ts-node": {
+      "version": "1.2.1",
+      "from": "ts-node@latest",
+      "resolved": "https://registry.npmjs.org/ts-node/-/ts-node-1.2.1.tgz"
+    },
+    "tsconfig": {
+      "version": "5.0.2",
+      "from": "tsconfig@>=5.0.2 <6.0.0",
+      "resolved": "https://registry.npmjs.org/tsconfig/-/tsconfig-5.0.2.tgz",
+      "dependencies": {
+        "strip-json-comments": {
+          "version": "2.0.1",
+          "from": "strip-json-comments@>=2.0.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-2.0.1.tgz"
+        }
+      }
     },
     "tslint": {
       "version": "3.13.0",

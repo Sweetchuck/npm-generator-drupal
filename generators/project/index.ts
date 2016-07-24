@@ -63,7 +63,8 @@ module.exports = YG.Base.extend({
             enabledComposerRequireDev: [],
             drupalRoot: 'drupal_root',
             publicHtml: 'public_html',
-            sitesSubDir: 'default'
+            sitesSubDir: 'default',
+            runComposerInstall: false
         };
 
         self.fileNameVars = {};
@@ -166,17 +167,17 @@ module.exports = YG.Base.extend({
                         store: true,
                         message: 'Task runner',
                         choices: Utils.taskRunnerChoiceOptions(),
-                        'default': ''
+                        'default': self.config.taskRunner
                     },
                     <Inquirer.IQuestion>{
                         name: 'runComposerInstall',
                         type: 'confirm',
                         message: 'Install Composer packages',
                         store: true,
-                        'default': false
+                        'default': self.config.runComposerInstall
                     }
                 ])
-                .then(function (answers: any): void {
+                .then(function (answers: GeneratorDrupal.Project.IAnswers): void {
                     for (let name of Object.keys(answers)) {
                         self.config[name] = answers[name];
                     }
@@ -214,6 +215,27 @@ module.exports = YG.Base.extend({
             if (self.config.taskRunner === 'robo') {
                 self.copyTpl('RoboFile.php');
             }
+        }
+    },
+
+    install: {
+        composer: function (): void {
+            let self: GeneratorDrupal.Project.IGenerator = this;
+
+            if (self.config.runComposerInstall !== true) {
+                return;
+            }
+
+            self.runInstall(
+                'composer',
+                [],
+                {},
+                function (composerExitCode: number): void {
+                    if (composerExitCode !== 0) {
+                        self.log('Something has gone wrong with the `composer install`!\n');
+                    }
+                }.bind(this)
+            );
         }
     },
 

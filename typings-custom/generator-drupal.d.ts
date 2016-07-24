@@ -23,7 +23,7 @@ declare namespace GeneratorDrupal {
 
         }
 
-        export interface IAnswer extends Inquirer.IAnswers {
+        export interface IAnswers extends Inquirer.IAnswers {
 
             moduleNameSnake?: string;
 
@@ -31,7 +31,7 @@ declare namespace GeneratorDrupal {
 
         }
 
-        export interface IConfig extends IAnswer {
+        export interface IConfig extends IAnswers {
 
             moduleNameSnake?: string;
 
@@ -59,9 +59,7 @@ declare namespace GeneratorDrupal {
 
         }
 
-        export interface IConfig {
-
-            vendorDash?: string;
+        export interface IConfig extends IConfigBase {
 
             vendorSnake?: string;
 
@@ -69,15 +67,11 @@ declare namespace GeneratorDrupal {
 
             vendorUpperCamel?: string;
 
-            nameDash?: string;
-
             nameSnake?: string;
 
             nameLowerCamel?: string;
 
             nameUpperCamel?: string;
-
-            taskRunner?: '' | 'robo';
 
             composerRequire?: {[name: string]: IComposerRequireItem};
 
@@ -87,11 +81,25 @@ declare namespace GeneratorDrupal {
 
             enabledComposerRequireDev?: IComposerRequireItem[];
 
+        }
+
+        export interface IAnswers extends Inquirer.IAnswers, IConfigBase {}
+
+        export interface IConfigBase {
+
+            vendorDash?: string;
+
+            nameDash?: string;
+
+            taskRunner?: '' | 'robo';
+
             sitesSubDir: string;
 
             drupalRoot: string;
 
             publicHtml: string;
+
+            runComposerInstall?: boolean;
 
         }
 

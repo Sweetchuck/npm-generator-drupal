@@ -71,7 +71,7 @@ module.exports = YG.Base.extend({
                         store: true
                     }
                 ])
-                .then(function (answers: GeneratorDrupal.Typed.IAnswer) : void {
+                .then(function (answers: GeneratorDrupal.Typed.IAnswers) : void {
                     self.config.moduleNameSnake = answers.moduleNameSnake;
                     self.config.runInstall = answers.runInstall;
                 }.bind(this));
@@ -124,21 +124,21 @@ module.exports = YG.Base.extend({
             self.runInstall(
                 'npm',
                 [],
-                {'cache-min': this.options['use-npm-cache'] ? '999999' : '0'},
+                {'cache-min': self.options['use-npm-cache'] ? '999999' : '0'},
                 function (npmExitCode: number): void {
                     if (npmExitCode !== 0) {
-                        this.log('Something has gone wrong with the `npm install`!\n');
+                        self.log('Something has gone wrong with the `npm install`!\n');
 
                         return;
                     }
 
-                    this.runInstall(
+                    self.runInstall(
                         'node_modules/.bin/typings',
                         [],
                         {},
                         function (typingsExitCode: number): void {
                             if (typingsExitCode !== 0) {
-                                this.log('Something has gone wrong with the `typings install`!\n');
+                                self.log('Something has gone wrong with the `typings install`!\n');
                             }
                         }.bind(this)
                     );

@@ -8,7 +8,7 @@ import * as Path from 'path';
     yoAssert: YeomanAssert.IStatic
 ) : void {
 
-    describe('drupal:typed with install', function () : void {
+    describe('drupal:typed with NPM install', function () : void {
 
         before(function () : PromiseLike<any> {
             return yoTest
@@ -39,7 +39,7 @@ import * as Path from 'path';
 
     });
 
-    describe('drupal:typed without install', function () : void {
+    describe('drupal:typed without NPM install', function () : void {
 
         before(function () : PromiseLike<any> {
             return yoTest
