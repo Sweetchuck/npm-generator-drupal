@@ -12,10 +12,15 @@
   "files": [
     "typings/index",
     "typings-custom/generator-drupal",
+    "typings-custom/inquirer",
     "typings-custom/yeoman-assert",
+    "typings-custom/yeoman-generator",
     "typings-custom/yeoman-test",
     "generators/project/index",
     "generators/typed/index",
-    "test/generators/typed/indexTest"
+    "lib/Utils",
+    "test/generators/typed/indexTest",
+    "test/generators/project/indexTest",
+    "test/lib/UtilsTest"
   ]
 }

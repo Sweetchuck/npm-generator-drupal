@@ -1,7 +1,6 @@
 {
   "globalDependencies": {
-    "node": "registry:dt/node#6.0.0+20160709114037",
-    "yeoman-generator": "registry:dt/yeoman-generator#0.0.0+20160623193335"
+    "node": "registry:dt/node#6.0.0+20160709114037"
   },
   "globalDevDependencies": {
     "chai": "registry:dt/chai#3.4.0+20160601211834",
@@ -11,6 +10,6 @@
   "files": [
     "generators/project/index.d.ts",
     "generators/typed/index.d.ts",
-    "typings/generator-drupal.d.ts"
+    "typings-custom/generator-drupal.d.ts"
   ]
 }

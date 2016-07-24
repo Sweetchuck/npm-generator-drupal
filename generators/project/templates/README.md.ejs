@@ -1,0 +1,28 @@
+
+# How to install <%= vendorDash %>/<%= nameDash %> codebase
+
+1. Run `git clone ssh://git@<%= vendorDash %>.com/<%= nameDash %>.git`
+1. Run `cd <%= nameDash %>`
+1. Run `composer install`
+1. Create a new virtual host, e.g. `<%= nameDash %>.localhost` and document root has to point to `$(pwd)/public_html`
+1. hash_salt
+   1. Run `touch sites/default/hash_salt.txt`
+   1. And insert the hash from the [secret vault](https://example.com/#Hash-salt)
+      as file content. **The file must not ends with trailing new line.**
+1. Run `cp public_html/sites/default/example.settings.local.php public_html/sites/default/settings.local.php`
+1. Edit the `public_html/sites/default/settings.local.php` file to match your environment.
+   - Provide your Database credentials (username/password)
+   - Update `$settings['trusted_host_patterns']` according to your virtual host name.
+1. Run `bin/robo site:reinstall`
+1. Navigate to the specified domain in your browser.
+
+
+# Git workflow
+
+- Create new branch from the `master`
+  - `git checkout master`
+  - `git pull origin master`
+- Branch name format: i<issue_number>-<short_description><br />
+  e.g.: `git checkout -b i1234-something`
+- Commit message format: Issue #<issue_number> - <commit_message><br />
+  e.g.: `git commit -m 'Issue #1234 - Add an awesome feature'`

@@ -1,10 +1,10 @@
 {
   "name": "drupal-<%= moduleNameDash %>",
   "source": {
-    "homepage": "https://www.drupal.org/project/<%= moduleName %>",
+    "homepage": "https://www.drupal.org/project/<%= moduleNameSnake %>",
     "repository": {
       "type": "git",
-      "url": "https://git.drupal.org/project/<%= moduleName %>.git",
+      "url": "https://git.drupal.org/project/<%= moduleNameSnake %>.git",
       "branch": "8.x-1.x",
       "revision": ""
     }
@@ -15,6 +15,6 @@
     "jqueryui": "registry:dt/jqueryui#1.9.0+20160627030821"
   },
   "files": [
-    "source/<%= moduleName %>.d.ts"
+    "source/<%= moduleNameSnake %>.d.ts"
   ]
 }

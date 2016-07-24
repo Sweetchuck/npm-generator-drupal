@@ -39,14 +39,14 @@
   },
   "scripts": {
     "tsc": "tsc --project .",
-    "lint": "tslint --exclude ./{generators,lib,test}/**/*.dt.ts ./{generators,lib,test,typings-custom}/**/*.ts",
+    "lint": "tslint --exclude './{generators,lib,test}/**/*.d.ts' './{generators,lib,test,typings-custom}/**/*.ts'",
     "tmp-prepare": "[ ! -d './tmp/' ] && mkdir tmp/; find ./tmp/ -mindepth 1 -maxdepth 1 -exec rm -rf {} \\;",
     "preunpack": "npm pack && npm run tmp-prepare",
     "unpack": "tar zxvf generator-drupal-*.tgz -C tmp/ && rm generator-drupal-*.tgz",
     "test": "npm run test-istanbul",
     "clear-coverage": "[ ! -d ./reports/coverage ] || rm -rf ./reports/coverage",
     "pretest-istanbul": "npm run clear-coverage",
-    "test-istanbul": "istanbul cover --dir ./reports/coverage _mocha -- --recursive ./test/**/*Test.js",
+    "test-istanbul": "istanbul cover --dir ./reports/coverage _mocha -- --recursive './test/**/*Test.js'",
     "posttest-istanbul": "npm run istanbul-check-coverage",
     "istanbul-check-coverage": "istanbul check-coverage"
   }

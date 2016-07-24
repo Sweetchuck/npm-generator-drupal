@@ -1,6 +1,7 @@
 
 import * as YoTest from 'yeoman-test';
 import * as YoAssert from 'yeoman-assert';
+import * as Path from 'path';
 
 (function (
     yoTest: YeomanTest.IStatic,
@@ -11,10 +12,41 @@ import * as YoAssert from 'yeoman-assert';
 
         before(function () : PromiseLike<any> {
             return yoTest
-                .run(process.cwd() + '/generators/typed')
+                .run(Path.join(__dirname, '../../../generators/typed'))
                 .withPrompts({
-                    moduleName: 'my_module_foo',
+                    moduleNameSnake: 'my_module_foo',
                     runInstall: true
+                })
+                .toPromise();
+        });
+
+        it('has the excepted files', function (done: MochaDone) : void {
+            yoAssert.file([
+                'source/my_module_foo.d.ts',
+                'source/my_module_foo.t.ts',
+                'source/tsconfig.json',
+                '.editorconfig',
+                '.gitignore',
+                '.npmignore',
+                'package.json',
+                'README.md',
+                'tslint.json',
+                'typings.json'
+            ]);
+
+            done();
+        });
+
+    });
+
+    describe('drupal:typed without install', function () : void {
+
+        before(function () : PromiseLike<any> {
+            return yoTest
+                .run(Path.join(__dirname, '../../../generators/typed'))
+                .withPrompts({
+                    moduleNameSnake: 'my_module_foo',
+                    runInstall: false
                 })
                 .toPromise();
         });

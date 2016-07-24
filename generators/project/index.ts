@@ -1,13 +1,16 @@
 
-import * as _ from 'lodash';
 import * as YG from 'yeoman-generator';
+import * as _ from 'lodash';
+import Utils = require('../../lib/Utils');
 
 module.exports = YG.Base.extend({
 
     constructor: function (): void {
         YG.Base.apply(this, arguments);
 
-        this.config = {
+        let self: GeneratorDrupal.Project.IGenerator = this;
+
+        self.config = {
             composerRequire: {
                 'drupal/core': {
                     version: '~8.1',
@@ -55,209 +58,171 @@ module.exports = YG.Base.extend({
                     version: '^3.2',
                     enabled: true
                 }
-            }
+            },
+            enabledComposerRequire: [],
+            enabledComposerRequireDev: [],
+            drupalRoot: 'drupal_root',
+            publicHtml: 'public_html',
+            sitesSubDir: 'default'
         };
 
-        this.templateVars = {};
+        self.fileNameVars = {};
 
-        this.fileNameVars = {};
+        self.destinationFileName = function (fileName: string): string {
+            let fromTo: {[from: string]: string} = {};
 
-        this.upperFirst = function (str: string): string {
-            return str.charAt(0).toUpperCase() + str.slice(1);
-        };
-
-        this.stringReplace = function (
-            str: string,
-            args: {[from: string]: string},
-            keys?: string[]
-        ): string {
-            if (str.length === 0) {
-                return str;
-            }
-
-            // If the array of keys is not passed then collect the keys from the args.
-            if (!Array.isArray(keys)) {
-                keys = [];
-                for (var k in args) {
-                    if (args.hasOwnProperty(k)) {
-                        keys.push(k);
-                    }
-                }
-
-                // Order the keys by the character length. The shortest one is the first.
-                keys.sort(function (a: string, b: string): number {
-                    return a.length - b.length;
-                });
-            }
-
-            if (keys.length === 0) {
-                return str;
-            }
-
-            // Take next longest one from the end.
-            var key: string = keys.pop();
-            var fragments: string[] = str.split(key);
-
-            if (keys.length) {
-                for (let i: number = 0; i < fragments.length; i++) {
-                    // Process each fragment with a copy of remaining keys.
-                    fragments[i] = this.stringReplace(fragments[i], args, keys.slice(0));
+            for (var from of Object.keys(self.config)) {
+                if (typeof self.config[from] === 'string') {
+                    fromTo[from] = self.config[from];
                 }
             }
 
-            return fragments.join(args[key]);
-        };
-
-        this.destinationFileName = function (fileName: string): string {
-            return this
-                .stringReplace(fileName, this.fileNameVars)
+            return Utils
+                .stringReplace(fileName, fromTo)
                 .replace(/\.ejs$/, '');
         };
 
-        this.initTemplateVars = function (): void {
-            this.templateVars = {
-                vendorDash: this.config.vendorDash,
-                vendorSnake: this.config.vendorDash.replace('-', '_'),
-                vendorLowerCamel: _.camelCase(this.config.vendorDash),
-                vendorUpperCamel: this.upperFirst(_.camelCase(this.config.vendorDash)),
-                nameDash: this.config.nameDash,
-                nameSnake: this.config.nameDash.replace('-', '_'),
-                nameLowerCamel: _.camelCase(this.config.nameDash),
-                nameUpperCamel: this.upperFirst(_.camelCase(this.config.nameDash)),
-                sitesSubDir: 'default',
-                taskRunner: this.config.taskRunner,
-                composerRequire: [],
-                composerRequireDev: []
-            };
+        self.preProcessConfig = function (): void {
+            self.config.vendorSnake = self.config.vendorDash.replace('-', '_');
+            self.config.vendorLowerCamel = _.camelCase(self.config.vendorDash);
+            self.config.vendorUpperCamel = Utils.upperFirst(_.camelCase(self.config.vendorDash));
+            self.config.nameSnake = self.config.nameDash.replace('-', '_');
+            self.config.nameLowerCamel = _.camelCase(self.config.nameDash);
+            self.config.nameUpperCamel = Utils.upperFirst(_.camelCase(self.config.nameDash));
+            self.config.sitesSubDir = 'default';
 
-            if (this.config.taskRunner === 'robo') {
-                this.config.composerRequireDev['consolidation/robo'].enabled = true;
-                this.config.composerRequireDev['cheppers/robo-phpcs'].enabled = true;
+            if (self.config.taskRunner === 'robo') {
+                self.config.composerRequireDev['consolidation/robo'].enabled = true;
+                self.config.composerRequireDev['cheppers/robo-phpcs'].enabled = true;
             }
 
-            for (let key of Object.keys(this.config.composerRequire)) {
-                this.config.composerRequire[key].name = key;
-                this.templateVars.composerRequire.push(this.config.composerRequire[key]);
+            for (let name of Object.keys(self.config.composerRequire)) {
+                self.config.composerRequire[name].name = name;
+                if (self.config.composerRequire[name].enabled) {
+                    self.config.enabledComposerRequire.push(self.config.composerRequire[name]);
+                }
             }
 
-            for (let key of Object.keys(this.config.composerRequireDev)) {
-                this.config.composerRequireDev[key].name = key;
-                this.templateVars.composerRequireDev.push(this.config.composerRequireDev[key]);
-            }
-        };
-
-        this.initFileNameVars = function (): void {
-            for (let key of Object.keys(this.templateVars)) {
-                if (this.templateVars.hasOwnProperty(key)
-                    && (typeof this.templateVars[key] === 'string'
-                        || typeof this.templateVars[key] === 'number'
-                    )
-                ) {
-                    this.fileNameVars[key] = this.templateVars[key];
+            for (let name of Object.keys(self.config.composerRequireDev)) {
+                self.config.composerRequireDev[name].name = name;
+                if (self.config.composerRequireDev[name].enabled) {
+                    self.config.enabledComposerRequireDev.push(self.config.composerRequireDev[name]);
                 }
             }
         };
 
-        this.copyTpl = function (srcFileName: string, dstFileName?: string): void {
+        self.copyTpl = function (srcFileName: string, dstFileName?: string): void {
             if (!dstFileName) {
                 dstFileName = srcFileName;
             }
 
-            this.fs.copyTpl(
-                this.templatePath(srcFileName + '.ejs'),
-                this.destinationPath(this.destinationFileName(dstFileName)),
-                this.templateVars
+            self.fs.copyTpl(
+                self.templatePath(srcFileName + '.ejs'),
+                self.destinationPath(self.destinationFileName(dstFileName)),
+                self.config
             );
         };
     },
 
-    initializing: function (): void {
-        this.log(require('yeoman-welcome'));
+    initializing: {
+        welcomeMessage: function (): void {
+            let self: GeneratorDrupal.Project.IGenerator = this;
+
+            self.log('Template for a Drupal 8 project');
+        }
     },
 
-    prompting: function (): void {
-        return this
-            .prompt([
-                {
-                    name: 'vendorDash',
-                    type: 'input',
-                    message: 'Vendor',
-                    store: true,
-                    'default': function (): string {
-                        let path: string[] = this.destinationPath().split('/');
-                        path.pop();
+    prompting: {
+        base: function (): PromiseLike<any> {
+            let self: GeneratorDrupal.Project.IGenerator = this;
 
-                        return path.pop();
-                    }.bind(this)
-                },
-                {
-                    name: 'nameDash',
-                    type: 'input',
-                    message: 'Name',
-                    'default': function (): string {
-                        return this.destinationPath().split('/').pop();
-                    }.bind(this)
-                },
-                {
-                    name: 'taskRunner',
-                    type: 'list',
-                    store: true,
-                    message: 'Task runner',
-                    choices: [
-                        {
-                            name: '- None -',
-                            value: ''
-                        },
-                        {
-                            name: 'Robo',
-                            value: 'robo'
-                        }
-                    ],
-                    'default': ''
-                },
-                {
-                    name: 'runComposerInstall',
-                    type: 'confirm',
-                    message: 'Install Composer packages',
-                    store: true,
-                    'default': false
-                }
-            ])
-            .then(function (answers: any) : void {
-                for (let name of Object.keys(answers)) {
-                    this.config[name] = answers[name];
-                }
-            }.bind(this));
+            return self
+                .prompt(<Inquirer.Questions>[
+                    <Inquirer.IQuestion>{
+                        name: 'vendorDash',
+                        type: 'input',
+                        message: 'Vendor of this Composer package. (Use dashes instead of spaces)',
+                        store: true,
+                        'default': function (): string {
+                            let path: string[] = self.destinationPath().split('/');
+                            path.pop();
+
+                            return path.pop();
+                        }.bind(this),
+                        filter: Utils.promptFilterComposerPackageName
+                    },
+                    <Inquirer.IQuestion>{
+                        name: 'nameDash',
+                        type: 'input',
+                        message: 'Name',
+                        'default': function (): string {
+                            return self.destinationPath().split('/').pop();
+                        }.bind(this),
+                        filter: Utils.promptFilterComposerPackageName
+                    },
+                    <Inquirer.IQuestion>{
+                        name: 'taskRunner',
+                        type: 'list',
+                        store: true,
+                        message: 'Task runner',
+                        choices: Utils.taskRunnerChoiceOptions(),
+                        'default': ''
+                    },
+                    <Inquirer.IQuestion>{
+                        name: 'runComposerInstall',
+                        type: 'confirm',
+                        message: 'Install Composer packages',
+                        store: true,
+                        'default': false
+                    }
+                ])
+                .then(function (answers: any): void {
+                    for (let name of Object.keys(answers)) {
+                        self.config[name] = answers[name];
+                    }
+                }.bind(this));
+        }
     },
 
-    configuring: function (): void {
-        this.initTemplateVars();
-        this.initFileNameVars();
+    configuring: {
+        templateVariables: function (): void {
+            let self: GeneratorDrupal.Project.IGenerator = this;
+
+            self.preProcessConfig();
+        }
     },
 
     writing: {
-        'copyFiles': function (): void {
+        copyFiles: function (): void {
+            let self: GeneratorDrupal.Project.IGenerator = this;
+
             let files: string[] = [
                 'src/Composer/Scripts.php',
+                '.editorconfig',
+                '.gitignore',
                 'composer.json',
-                '.editorconfig'
+                'README.md'
             ];
             for (let file of files) {
-                this.copyTpl(file);
+                self.copyTpl(file);
             }
 
-            if (this.config.taskRunner) {
-                this.copyTpl('.git-hooks.' + this.config.taskRunner, '.git-hooks');
+            if (self.config.taskRunner) {
+                self.copyTpl('.git-hooks.' + self.config.taskRunner, '.git-hooks');
             }
 
-            if (this.config.taskRunner === 'robo') {
-                this.copyTpl('RoboFile.php');
+            if (self.config.taskRunner === 'robo') {
+                self.copyTpl('RoboFile.php');
             }
         }
     },
 
-    end: function (): void {
-        //
+    end: {
+        goodByeMessage: function (): void {
+            let self: GeneratorDrupal.Project.IGenerator = this;
+
+            self.log('Everything is ready');
+        }
     }
 
 });

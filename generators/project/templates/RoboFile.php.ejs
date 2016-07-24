@@ -59,6 +59,36 @@ class RoboFile extends \Robo\Tasks
     }
 
     /**
+     * Git "post-checkout" hook callback.
+     *
+     * @param string $old_ref
+     *   The ref of the previous HEAD.
+     * @param string $new_ref
+     *   The ref of the new HEAD (which may or may not have changed).
+     * @param string $is_branch
+     *   A flag indicating whether the checkout was a branch checkout (changing
+     *   branches, flag=1) or a file checkout (retrieving a file from the index,
+     *   flag=0).
+     */
+    public function githookPostCheckout($old_ref, $new_ref, $is_branch)
+    {
+        $command = sprintf(
+            '%s diff --exit-code --name-only %s..%s -- %s %s',
+            escapeshellcmd($this->gitExecutable),
+            escapeshellarg($old_ref),
+            escapeshellarg($new_ref),
+            escapeshellarg('composer.json'),
+            escapeshellarg('composer.lock')
+        );
+
+        $process = new Process($command);
+        $process->run();
+        if (!$process->isSuccessful()) {
+            $this->yell('The "composer.{json|lock}" has changed. You have to run `composer install`', 40, 'yellow');
+        }
+    }
+
+    /**
      * @return \Cheppers\Robo\Task\Phpcs\TaskPhpcsLint
      */
     protected function getTaskPhpcsLint()

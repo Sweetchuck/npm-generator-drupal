@@ -3,14 +3,15 @@ declare namespace YeomanAssert {
 
     export interface IStatic {
 
-        file(files: string[]) : this;
+        file(files: string | string[]) : this;
 
-        noFile(files: string[]) : this;
+        noFile(files: string | string[]) : this;
 
-        fileContent(fileName: string, fileContent: string) : this;
+        fileContent(fileName: string, fileContent: string | RegExp) : this;
 
-        noFileContent(fileName: string, fileContent: string) : this;
+        noFileContent(fileName: string, fileContent: string | RegExp) : this;
 
+        textEqual(value: string, expected: string): this;
     }
 
 }

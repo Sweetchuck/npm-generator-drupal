@@ -81,19 +81,19 @@
             ]
         },
         "installer-paths": {
-            "drupal_root/core": [
+            "<%= drupalRoot %>/core": [
                 "type:drupal-core"
             ],
-            "drupal_root/profiles/{$name}": [
+            "<%= drupalRoot %>/profiles/{$name}": [
                 "type:drupal-profile"
             ],
-            "drupal_root/modules/contrib/{$name}": [
+            "<%= drupalRoot %>/modules/contrib/{$name}": [
                 "type:drupal-module"
             ],
-            "drupal_root/themes/contrib/{$name}": [
+            "<%= drupalRoot %>/themes/contrib/{$name}": [
                 "type:drupal-theme"
             ],
-            "drupal_root/drush/contrib/{$name}": [
+            "<%= drupalRoot %>/drush/contrib/{$name}": [
                 "type:drupal-drush"
             ]
         }
