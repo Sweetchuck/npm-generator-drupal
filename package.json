@@ -1,5 +1,5 @@
 {
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "GPL-2.0+",
   "name": "generator-drupal",
   "description": "Generate a Drupal related projects",
